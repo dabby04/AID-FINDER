@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/header1"
         android:layout_width="344dp"
         android:layout_height="112dp"
         android:text="Are you in immediate need of Help?"
@@ -21,82 +21,126 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.203" />
 
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/foot1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:layout_marginBottom="457dp"
         android:text="Contact -"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.354" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/text_Number1"
         android:layout_width="244dp"
         android:layout_height="50dp"
+<<<<<<< HEAD
         android:layout_marginTop="16dp"
+=======
+        android:autoLink="phone"
+        android:linksClickable="true"
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
         android:text="1-800-257-7756"
         android:textColor="#5A65A3"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/text_Number2"
         android:layout_width="233dp"
         android:layout_height="58dp"
         android:text="604-433-2218"
+        android:autoLink="phone"
+        android:linksClickable="true"
         android:textColor="#5A65A3"
         android:textSize="24sp"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@+id/textView6"
+=======
+        app:layout_constraintBottom_toBottomOf="parent"
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.45" />
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.563" />
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/text_Number4"
         android:layout_width="247dp"
         android:layout_height="50dp"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="131dp"
         android:layout_marginBottom="83dp"
         android:text="911"
+        android:autoLink="phone"
+        android:linksClickable="true"
         android:textColor="#5A65A3"
         android:textSize="24sp"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+=======
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.725" />
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/text_Number3"
         android:layout_width="238dp"
         android:layout_height="57dp"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="140dp"
         android:layout_marginBottom="13dp"
         android:text="811"
+        android:autoLink="phone"
+        android:linksClickable="true"
         android:textColor="#5A65A3"
         android:textSize="24sp"
+<<<<<<< HEAD
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+=======
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.648" />
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nextButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skip"
@@ -104,7 +148,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.841" />
+=======
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882" />
+>>>>>>> 60fc0f0ea7e1de536e539162dcce36a9d6d0b70e
+
+    <TextView
+        android:id="@+id/text_Home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.831" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
