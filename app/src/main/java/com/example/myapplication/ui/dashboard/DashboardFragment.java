@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
 import com.google.android.gms.common.api.ApiException;
@@ -39,8 +41,18 @@ import com.google.android.gms.tasks.Task;
 import android.location.Address;
 import android.location.Geocoder;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import com.opencsv.CSVReader;
+import java.io.IOException;
+import java.io.FileReader;
+import java.util.Map;
 
 public class DashboardFragment extends Fragment {
 
@@ -91,8 +103,8 @@ public class DashboardFragment extends Fragment {
 
                                     if(locationResult!=null && locationResult.getLocations().size()>0){
                                         int index=locationResult.getLocations().size()-1;
-                                        double latitude= locationResult.getLocations().get(index).getLatitude();
-                                        double longitude=locationResult.getLocations().get(index).getLongitude();
+                                         latitude= locationResult.getLocations().get(index).getLatitude();
+                                         longitude=locationResult.getLocations().get(index).getLongitude();
 
 //                                        locationText.setText(latitude+", "+longitude);
                                         getAddressFromLocation(latitude, longitude);
@@ -112,16 +124,21 @@ public class DashboardFragment extends Fragment {
         }
     }
     public void next(View view){
+        readFile();
         String a=locationText.getText().toString();
         String[] split = a.split(",");
         if(split.length==2){
-
+            latitude=Double.parseDouble(split[0].trim());
+            longitude=Double.parseDouble(split[1].trim());
+            showMapFragment(latitude, longitude);
         }
         else{
             LatLng location = getLocationFromAddress(requireContext(), a);
-            longitude=location.longitude;
-            latitude=location.latitude;
-            Log.d("STATE",latitude+", "+longitude);
+            if (location != null) {
+                showMapFragment(location.latitude, location.longitude);
+            } else {
+                // Handle invalid address
+            }
         }
     }
     public static LatLng getLocationFromAddress(Context context, String strAddress) {
@@ -220,4 +237,57 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    public void showMapFragment(double latitude, double longitude) {
+        MapsFragment mapsFragment = new MapsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putDouble("latitude", latitude);
+        bundle.putDouble("longitude", longitude);
+        mapsFragment.setArguments(bundle);
+
+        // Replace the content of the mapsContainer with MapsFragment
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.mapsContainer, mapsFragment)
+                .addToBackStack(null)
+                .commit();
+
+        // Show the container
+        getView().findViewById(R.id.mapsContainer).setVisibility(View.VISIBLE);
+    }
+
+//    method that reads from the file and stores the latitude and longitude in lists
+    public Map readFile(){
+        Resources resources = getResources();
+        InputStream inputStream = resources.openRawResource(R.raw.data);
+
+        try {
+            CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
+//           // Read the headers
+            String[] headers = reader.readNext();
+
+            // Create a map to store lists for each header
+            Map<String, List<String>> headerLists = new HashMap<>();
+            for (String header : headers) {
+                headerLists.put(header, new ArrayList<>());
+            }
+
+            // Read and process the CSV data
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                // Process the CSV data in 'nextLine'
+                for (int i = 0; i < headers.length && i < nextLine.length; i++) {
+                    // Add each value to the corresponding list
+                    headerLists.get(headers[i]).add(nextLine[i]);
+                }
+            }
+            return headerLists;
+//            reader.close();
+        }
+        catch(IOException e){
+            Log.d("FILE","FILE NOT FOUND");
+        }
+        return null;
+    }
+
+
 }

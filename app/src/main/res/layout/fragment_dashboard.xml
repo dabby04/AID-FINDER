@@ -63,11 +63,11 @@
         android:backgroundTint="#FDFBFB"
         android:onClick="getLocation"
         android:src="@android:drawable/ic_menu_mylocation"
-        android:tint="#070707"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/locationText"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:tint="#070707" />
 
     <Button
         android:id="@+id/next_map"
@@ -89,4 +89,17 @@
         android:text="PREVIOUS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/mapsContainer"
+        android:layout_width="409dp"
+        android:layout_height="601dp"
+        android:layout_marginBottom="9dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/next_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
