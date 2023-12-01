@@ -102,7 +102,7 @@
         tools:layout_editor_absoluteY="437dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/next_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skip"
