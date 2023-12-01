@@ -16,21 +16,24 @@
         tools:layout_editor_absoluteY="8dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/header3"
         android:layout_width="341dp"
         android:layout_height="92dp"
         android:layout_marginStart="29dp"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="42dp"
-        android:text="FINDING THOSE SERVICES NEAR YOU:"
+        android:text="FINDING  SERVICES NEAR YOU:"
         android:textAlignment="center"
         android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_dashboard" />
+        app:layout_constraintTop_toBottomOf="@+id/text_dashboard"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/contact"
+        android:id="@+id/foot1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="118dp"
@@ -39,10 +42,10 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/header3" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/locationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
@@ -52,7 +55,7 @@
         android:hint="Location"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contact" />
+        app:layout_constraintTop_toBottomOf="@+id/foot1" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -65,11 +68,11 @@
         android:tint="#070707"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/contact" />
+        app:layout_constraintStart_toEndOf="@+id/locationText"
+        app:layout_constraintTop_toBottomOf="@+id/foot1" />
 
     <Button
-        android:id="@+id/home_skip1"
+        android:id="@+id/nextButton2"
         android:layout_width="122dp"
         android:layout_height="56dp"
         android:layout_marginEnd="45dp"
@@ -79,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/prevButton"
+        android:id="@+id/prevButton2"
         android:layout_width="122dp"
         android:layout_height="56dp"
         android:layout_marginStart="45dp"

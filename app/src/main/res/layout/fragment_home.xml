@@ -23,7 +23,7 @@
 
 
     <TextView
-        android:id="@+id/contact"
+        android:id="@+id/foot1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
@@ -105,7 +105,7 @@
         app:layout_constraintVertical_bias="0.648" />
 
     <Button
-        android:id="@+id/home_skip1"
+        android:id="@+id/nextButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Skip"

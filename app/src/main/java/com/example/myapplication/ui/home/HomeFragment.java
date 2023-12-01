@@ -36,13 +36,13 @@ public class HomeFragment extends Fragment {
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        skip = root.findViewById(R.id.home_skip1);
+        skip = root.findViewById(R.id.nextButton2);
         number1 = root.findViewById(R.id.text_Number1);
         number2 = root.findViewById(R.id.text_Number2);
         number3 = root.findViewById(R.id.text_Number3);
         number4 = root.findViewById(R.id.text_Number4);
         header = root.findViewById(R.id.header1);
-        contact = root.findViewById(R.id.contact);
+        contact = root.findViewById(R.id.foot1);
 
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
