@@ -2,8 +2,6 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 
-import com.example.myapplication.ui.dashboard.DashboardFragment;
-import com.example.myapplication.ui.dashboard.MapsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
