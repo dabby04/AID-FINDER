@@ -16,14 +16,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -41,10 +39,5 @@ public class MainActivity extends AppCompatActivity
 
         getSupportActionBar().setTitle("AID-FINDER");
     }
-
-    public void Skipbutton(View view)
-    {
-        Intent homePage2 = new Intent(this, HomePageTwo.class);
-    }
-
 }
+
