@@ -62,6 +62,19 @@ public class DashboardFragment extends Fragment {
     double latitude;
     double longitude;
 
+    static Map<String,List<String>> details;
+    static List<LatLng> markers;
+
+//    Things remaining for me to do:
+//    Check if my onclick for the markers are working
+//    show the details of the marks clicked, use the image and details of the store
+//    allow the close button to close the details of the store and lead back to the map
+//    when done navigating, allow the user to click take me there close navigation completely-- starred concept
+//    remember to change the previous part to finish() in home activity
+//    in home view moodel, remove the settEXT
+//    DELETE SEARCh
+//    moving the home part to navifation part on the dashboad, essentially linking search
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel =
@@ -124,17 +137,26 @@ public class DashboardFragment extends Fragment {
         }
     }
     public void next(View view){
-        readFile();
+        details=readFile();
+        List<String> address=details.get("Address");
+        Button nextButton = (Button) getView().findViewById(R.id.next_map);
+
+
+        for(int i=0;i<address.size();i++){
+            markers.add(getLocationFromAddress(requireContext(),address.get(i)));
+        }
         String a=locationText.getText().toString();
         String[] split = a.split(",");
         if(split.length==2){
             latitude=Double.parseDouble(split[0].trim());
             longitude=Double.parseDouble(split[1].trim());
+            nextButton.setVisibility(View.GONE);
             showMapFragment(latitude, longitude);
         }
         else{
             LatLng location = getLocationFromAddress(requireContext(), a);
             if (location != null) {
+                nextButton.setVisibility(View.GONE);
                 showMapFragment(location.latitude, location.longitude);
             } else {
                 // Handle invalid address
@@ -256,7 +278,7 @@ public class DashboardFragment extends Fragment {
     }
 
 //    method that reads from the file and stores the latitude and longitude in lists
-    public Map readFile(){
+    public Map<String,List<String>> readFile(){
         Resources resources = getResources();
         InputStream inputStream = resources.openRawResource(R.raw.data);
 

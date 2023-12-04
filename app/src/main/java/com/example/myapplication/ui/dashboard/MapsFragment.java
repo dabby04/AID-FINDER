@@ -16,10 +16,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 public class MapsFragment extends Fragment {
     private GoogleMap googleMap;
+    List<LatLng> markerDets= DashboardFragment.markers;
+
+    List<String> shelter = DashboardFragment.details.get("Shelter Name");
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -56,6 +62,7 @@ public class MapsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadLocations();
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -70,7 +77,6 @@ public class MapsFragment extends Fragment {
         }
     }
     public void setUserLocation(double latitude, double longitude) {
-        
         if (googleMap != null) {
             LatLng userLocation = new LatLng(latitude, longitude);
             Log.d("MAP_DEBUG", "Setting user location: " + latitude + ", " + longitude);
@@ -79,6 +85,17 @@ public class MapsFragment extends Fragment {
         } else {
             // If onMapReady hasn't been called yet, store the location for later use
             pendingUserLocation = new LatLng(latitude, longitude);
+        }
+    }
+    public void loadLocations(){
+        for(int i=0;i<markerDets.size();i++){
+           LatLng location=markerDets.get(i);
+           String shelterName=shelter.get(i);
+
+            Marker marker = googleMap.addMarker(new MarkerOptions().position(location).title(shelterName));
+            marker.setTag(shelterName);
+
+
         }
     }
 }
