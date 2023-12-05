@@ -10,8 +10,8 @@
         android:layout_width="231dp"
         android:layout_height="65dp"
         android:ems="10"
+        android:hint="Username"
         android:inputType="text"
-        android:text="username"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,42 +34,42 @@
         android:layout_width="231dp"
         android:layout_height="65dp"
         android:ems="10"
+        android:hint="Name"
         android:inputType="text"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.421" />
+        app:layout_constraintVertical_bias="0.402" />
 
     <EditText
         android:id="@+id/login_email"
         android:layout_width="229dp"
         android:layout_height="72dp"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.688"
-        tools:text="Email Address" />
+        app:layout_constraintVertical_bias="0.688" />
 
     <EditText
         android:id="@+id/login_phoneNumber"
         android:layout_width="221dp"
         android:layout_height="64dp"
         android:ems="10"
+        android:hint="Phone number"
         android:inputType="phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.584"
-        tools:text="Phone Number" />
+        app:layout_constraintVertical_bias="0.584" />
 
     <Button
         android:id="@+id/login_skip_button"
@@ -113,9 +113,10 @@
         android:onClick="setDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819" />
+        app:layout_constraintVertical_bias="0.829" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -128,5 +129,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.248"
         app:srcCompat="@drawable/profile" />
+
+    <ImageView
+        android:id="@+id/datpicker"
+        android:layout_width="66dp"
+        android:layout_height="79dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.799"
+        app:srcCompat="@drawable/datepicker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
