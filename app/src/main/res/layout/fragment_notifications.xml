@@ -43,8 +43,8 @@
         android:layout_width="231dp"
         android:layout_height="65dp"
         android:ems="10"
+        android:hint="Name "
         android:inputType="text"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -57,42 +57,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Email "
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661"
-        tools:text="Email Address" />
+        app:layout_constraintVertical_bias="0.661" />
 
     <EditText
         android:id="@+id/login_phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Phone number "
         android:inputType="phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.536"
-        tools:text="Phone Number" />
+        app:layout_constraintVertical_bias="0.536" />
 
     <EditText
         android:id="@+id/profile_dateOfBirthTextview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="266dp"
+        android:layout_height="88dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:drawablePadding="?attr/listPreferredItemPaddingLeft"
         android:ems="10"
+        android:focusable="false"
+        android:hint="Date of Birth"
         android:inputType="date"
+        android:onClick="setDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.779"
-        tools:text="Date of Birth" />
+        app:layout_constraintVertical_bias="0.819" />
 
     <TextView
         android:id="@+id/profile_username"

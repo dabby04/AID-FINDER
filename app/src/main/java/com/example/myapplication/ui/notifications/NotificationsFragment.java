@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.notifications;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentNotificationsBinding;
 
 import java.io.FileOutputStream;
+import java.util.Calendar;
 
 public class NotificationsFragment extends Fragment {
     TextView username, name, email, phone_number, DOB,header;
@@ -57,28 +59,26 @@ public class NotificationsFragment extends Fragment {
         email = (TextView) root.findViewById(R.id.login_email);
         phone_number = (TextView) root.findViewById(R.id.login_phoneNumber);
         DOB = (TextView) root.findViewById(R.id.profile_dateOfBirthTextview);
-
-        register = root.findViewById(R.id.login_skip_button);
-        register.setVisibility(View.GONE);
-
+        register = root.findViewById(R.id.signup_submit_button2);
         header = root.findViewById(R.id.profile_header);
         header.setVisibility(View.GONE);
 
-        bundle = intent.getExtras();
 
-        if(bundle.isEmpty()){
-            header.setVisibility(View.VISIBLE);
-
-        }else{
-            username.append("" + bundle.get("username") );
-            name.append("" + bundle.get("name") );
-            email.append("" + bundle.get("email") );
-            phone_number.append("" + bundle.get("phone number") );
-            DOB.append("" + bundle.get("date of birth") );
-        }
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//        if(!intent.hasExtra("name")){
+//            header.setVisibility(View.VISIBLE);
+//
+//        }else{
+//            bundle = intent.getExtras();
+//            username.append("" + bundle.get("username") );
+//            name.append("" + bundle.get("name") );
+//            email.append("" + bundle.get("email") );
+//            phone_number.append("" + bundle.get("phone number") );
+//            DOB.append("" + bundle.get("date of birth") );
+//        }
 
                 String n = name.getText().toString();
                 String u = username.getText().toString();
@@ -97,6 +97,9 @@ public class NotificationsFragment extends Fragment {
     }
 
 
+    public void setDate(){
+
+    }
 
     @Override
     public void onDestroyView() {
