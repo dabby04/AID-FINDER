@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.ui.dashboard.DashboardFragment;
 import com.example.myapplication.ui.home.HomeFragment;
 
 public class HomeActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.home_page2);
 
         bundle = new Bundle();
-        intent = new Intent(this,Search.class);
+        intent = new Intent(this, DashboardFragment.class);
 
         category = (RadioGroup) findViewById(R.id.radioGroup);
         food = (CheckBox) findViewById(R.id.checkBox);
@@ -53,8 +54,8 @@ public class HomeActivity extends AppCompatActivity {
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-               startActivity(new Intent(HomeActivity.this, HomeFragment.class));
+                finish();
+//               startActivity(new Intent(HomeActivity.this, HomeFragment.class));
 
             }
         });

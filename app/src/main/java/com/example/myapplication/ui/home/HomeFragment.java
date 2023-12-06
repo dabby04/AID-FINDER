@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -50,6 +51,15 @@ public class HomeFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 startActivity(intent);
+
+//                FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//                BlankFragment newFragment = new BlankFragment();
+//                fragmentTransaction.replace(R.id.f, newFragment);
+//                fragmentTransaction.addToBackStack(null);
+//
+//                fragmentTransaction.commit();
             }
         });
 

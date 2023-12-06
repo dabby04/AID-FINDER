@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
@@ -63,17 +65,12 @@ public class DashboardFragment extends Fragment {
     double longitude;
 
     static Map<String,List<String>> details;
-    static List<LatLng> markers;
+    static List<LatLng> markers=new ArrayList<>();
 
 //    Things remaining for me to do:
-//    Check if my onclick for the markers are working
-//    show the details of the marks clicked, use the image and details of the store
-//    allow the close button to close the details of the store and lead back to the map
 //    when done navigating, allow the user to click take me there close navigation completely-- starred concept
-//    remember to change the previous part to finish() in home activity
-//    in home view moodel, remove the settEXT
 //    DELETE SEARCh
-//    moving the home part to navifation part on the dashboad, essentially linking search
+//    moving the home part to navigation part on the dashboard, essentially linking search
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -98,6 +95,9 @@ public class DashboardFragment extends Fragment {
 
         Button next=root.findViewById(R.id.next_map);
         next.setOnClickListener(this::next);
+
+        Button previous=root.findViewById(R.id.previous_map);
+        previous.setOnClickListener(this::previous);
 
         return root;
     }
@@ -138,6 +138,7 @@ public class DashboardFragment extends Fragment {
     }
     public void next(View view){
         details=readFile();
+
         List<String> address=details.get("Address");
         Button nextButton = (Button) getView().findViewById(R.id.next_map);
 
@@ -161,6 +162,17 @@ public class DashboardFragment extends Fragment {
             } else {
                 // Handle invalid address
             }
+        }
+    }
+    public void previous(View view) {
+        View rootView = getView();
+        if (rootView.findViewById(R.id.mapsContainer).getVisibility()==View.VISIBLE) {
+            rootView.findViewById(R.id.mapsContainer).setVisibility(View.GONE);
+            rootView.findViewById(R.id.next_map).setVisibility(View.VISIBLE);
+        }
+        else{
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+            navController.navigate(R.id.navigation_home);
         }
     }
     public static LatLng getLocationFromAddress(Context context, String strAddress) {
