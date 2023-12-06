@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.notifications;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 public class NotificationsFragment extends Fragment {
@@ -54,14 +56,6 @@ public class NotificationsFragment extends Fragment {
 
         //leave a review button connection
         register = root.findViewById(R.id.signup_submit_button2);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Log.d("NotificationsFragment", "Leave a review button clicked");
-                //Intent reviewIntent = new Intent(getActivity(), Reviewclass.class);
-                //startActivity(reviewIntent);
-            }
-        });
 
         leaveAReview = root.findViewById(R.id.LAR);
         leaveAReview.setOnClickListener(new View.OnClickListener() {
@@ -83,14 +77,31 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
         return root;
     }
+
+
+        public void save_data(View v) {
+            String u = username.getText().toString();
+            String n = name.getText().toString();
+            String e = email.getText().toString();
+            String p = phone_number.getText().toString();
+            String d = DOB.getText().toString();
+
+            String filename = "users_data.txt";
+            String fileContents = "\n" + u + "\n" + e + "\n" + p + "\n" + d;
+            FileOutputStream outputStream; //allow a file to be opened for writing
+            try {
+                outputStream =  getContext().openFileOutput(filename, Context.MODE_APPEND);
+                outputStream.write(fileContents.getBytes());
+                outputStream.close();
+            }
+            catch (Exception err) {
+                err.printStackTrace();
+            }
+
+
+        }
 
     // date picker
     private void showDatePickerDialog() {

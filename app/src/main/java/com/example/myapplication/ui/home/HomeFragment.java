@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.myapplication.HomeActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.example.myapplication.loginActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -49,17 +50,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), HomeActivity.class);
+                Intent intent = new Intent(getActivity(), loginActivity.class);
                 startActivity(intent);
 
-//                FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//                BlankFragment newFragment = new BlankFragment();
-//                fragmentTransaction.replace(R.id.f, newFragment);
-//                fragmentTransaction.addToBackStack(null);
-//
-//                fragmentTransaction.commit();
+                FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                BlankFragment newFragment = new BlankFragment();
+                fragmentTransaction.replace(R.id.f, newFragment);
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
             }
         });
 

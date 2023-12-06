@@ -6,6 +6,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.myapplication.ui.dashboard.DashboardFragment;
 
 public class Search  extends AppCompatActivity {
 
@@ -17,8 +21,8 @@ public class Search  extends AppCompatActivity {
        super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard);
 
-
     }
+
 
 }
 

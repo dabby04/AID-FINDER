@@ -8,6 +8,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.myapplication.ui.dashboard.DashboardFragment;
 import com.example.myapplication.ui.home.HomeFragment;
@@ -27,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.home_page2);
 
         bundle = new Bundle();
-        intent = new Intent(this, DashboardFragment.class);
+        intent = new Intent(this, transitionFragment.class);
 
         category = (RadioGroup) findViewById(R.id.radioGroup);
         food = (CheckBox) findViewById(R.id.checkBox);
@@ -44,9 +46,18 @@ public class HomeActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DashboardFragment fragment = new DashboardFragment();
+                // Get the FragmentManager
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                // Begin a fragment transaction
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                // Replace the existing content with your fragment
+                transaction.replace(R.id.constraintLayoutContainer, fragment);
 
-                intent.putExtras(bundle);
-                startActivity(intent);
+            //     Commit the transaction
+                transaction.commit();
+
+     //           startActivity(intent);
             }
         });
 
@@ -55,7 +66,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-//               startActivity(new Intent(HomeActivity.this, HomeFragment.class));
 
             }
         });

@@ -51,7 +51,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import com.opencsv.CSVReader;
 import java.io.IOException;
 import java.io.FileReader;
 import java.util.Map;
@@ -64,8 +63,8 @@ public class DashboardFragment extends Fragment {
     double latitude;
     double longitude;
 
-    static Map<String,List<String>> details;
-    static List<LatLng> markers=new ArrayList<>();
+    static Map<String, List<String>> details;
+    static List<LatLng> markers = new ArrayList<>();
 
 //    Things remaining for me to do:
 //    when done navigating, allow the user to click take me there close navigation completely-- starred concept
@@ -82,246 +81,246 @@ public class DashboardFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
+//
         locationText = root.findViewById(R.id.locationText);
-
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
+//
+//        locationRequest = LocationRequest.create();
+//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        locationRequest.setInterval(5000);
+//        locationRequest.setFastestInterval(2000);
 
         ImageButton getLocationButton = root.findViewById(R.id.imageButton);
-        getLocationButton.setOnClickListener(this::getLocation);
+//        getLocationButton.setOnClickListener(this::getLocation);
 
-        Button next=root.findViewById(R.id.next_map);
-        next.setOnClickListener(this::next);
+        Button next = root.findViewById(R.id.next_map);
+        //      next.setOnClickListener(this::next);
 
-        Button previous=root.findViewById(R.id.previous_map);
-        previous.setOnClickListener(this::previous);
+        Button previous = root.findViewById(R.id.previous_map);
+        //    previous.setOnClickListener(this::previous);
 
         return root;
     }
-
-    public void getLocation(View view){
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
-            if(ActivityCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                if(isGPSEnabled()){
-                    LocationServices.getFusedLocationProviderClient(requireActivity())
-                            .requestLocationUpdates(locationRequest, new LocationCallback() {
-                                @Override
-                                public void onLocationResult(@NonNull LocationResult locationResult) {
-                                    super.onLocationResult(locationResult);
-                                    LocationServices.getFusedLocationProviderClient(requireActivity())
-                                            .removeLocationUpdates(this);
-
-                                    if(locationResult!=null && locationResult.getLocations().size()>0){
-                                        int index=locationResult.getLocations().size()-1;
-                                         latitude= locationResult.getLocations().get(index).getLatitude();
-                                         longitude=locationResult.getLocations().get(index).getLongitude();
-
-//                                        locationText.setText(latitude+", "+longitude);
-                                        getAddressFromLocation(latitude, longitude);
-
-
-                                    }
-                                }
-                            }, Looper.getMainLooper());
-                }
-                else{
-                    turnOnGPS();
-                }
-            }
-            else{
-                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
-        }
-    }
-    public void next(View view){
-        details=readFile();
-
-        List<String> address=details.get("Address");
-        Button nextButton = (Button) getView().findViewById(R.id.next_map);
-
-
-        for(int i=0;i<address.size();i++){
-            markers.add(getLocationFromAddress(requireContext(),address.get(i)));
-        }
-        String a=locationText.getText().toString();
-        String[] split = a.split(",");
-        if(split.length==2){
-            latitude=Double.parseDouble(split[0].trim());
-            longitude=Double.parseDouble(split[1].trim());
-            nextButton.setVisibility(View.GONE);
-            showMapFragment(latitude, longitude);
-        }
-        else{
-            LatLng location = getLocationFromAddress(requireContext(), a);
-            if (location != null) {
-                nextButton.setVisibility(View.GONE);
-                showMapFragment(location.latitude, location.longitude);
-            } else {
-                // Handle invalid address
-            }
-        }
-    }
-    public void previous(View view) {
-        View rootView = getView();
-        if (rootView.findViewById(R.id.mapsContainer).getVisibility()==View.VISIBLE) {
-            rootView.findViewById(R.id.mapsContainer).setVisibility(View.GONE);
-            rootView.findViewById(R.id.next_map).setVisibility(View.VISIBLE);
-        }
-        else{
-            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
-            navController.navigate(R.id.navigation_home);
-        }
-    }
-    public static LatLng getLocationFromAddress(Context context, String strAddress) {
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        LatLng latLng = null;
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null || address.isEmpty()) {
-                return null;
-            }
-
-            Address location = address.get(0);
-            double latitude = location.getLatitude();
-            double longitude = location.getLongitude();
-
-            latLng = new LatLng(latitude, longitude);
-
-            return latLng;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    private void getAddressFromLocation(double latitude, double longitude) {
-        Geocoder geocoder = new Geocoder(requireContext());
-
-        try {
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-            if (addresses != null && addresses.size() > 0) {
-                Address address = addresses.get(0);
-                String addressString = address.getAddressLine(0); // Get the full address
-                locationText.setText(addressString);
-            } else {
-                locationText.setText("Address not found");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            locationText.setText("Error fetching address");
-        }
-    }
-
-    private void turnOnGPS(){
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest);
-        builder.setAlwaysShow(true);
-
-        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(requireContext())
-                .checkLocationSettings(builder.build());
-
-        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-            @Override
-            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
-
-                try {
-                    LocationSettingsResponse response = task.getResult(ApiException.class);
-                    Toast.makeText(requireActivity(), "GPS is already turned on", Toast.LENGTH_SHORT).show();
-
-
-                } catch (ApiException e) {
-
-                    switch (e.getStatusCode()) {
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-
-                            try {
-                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
-                                resolvableApiException.startResolutionForResult(requireActivity(), 2);
-                            } catch (IntentSender.SendIntentException ex) {
-                                ex.printStackTrace();
-                            }
-                            break;
-
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            //Device does not have location
-                            break;
-                    }
-                }
-            }
-        });
-    }
-    private boolean isGPSEnabled(){
-        LocationManager locationManager=null;
-        boolean isEnabled=false;
-
-        if(locationManager==null){
-            locationManager=(LocationManager)requireContext().getSystemService(Context.LOCATION_SERVICE);
-        }
-        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        return isEnabled;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
-    public void showMapFragment(double latitude, double longitude) {
-        MapsFragment mapsFragment = new MapsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putDouble("latitude", latitude);
-        bundle.putDouble("longitude", longitude);
-        mapsFragment.setArguments(bundle);
-
-        // Replace the content of the mapsContainer with MapsFragment
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.mapsContainer, mapsFragment)
-                .addToBackStack(null)
-                .commit();
-
-        // Show the container
-        getView().findViewById(R.id.mapsContainer).setVisibility(View.VISIBLE);
-    }
-
-//    method that reads from the file and stores the latitude and longitude in lists
-    public Map<String,List<String>> readFile(){
-        Resources resources = getResources();
-        InputStream inputStream = resources.openRawResource(R.raw.data);
-
-        try {
-            CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
-//           // Read the headers
-            String[] headers = reader.readNext();
-
-            // Create a map to store lists for each header
-            Map<String, List<String>> headerLists = new HashMap<>();
-            for (String header : headers) {
-                headerLists.put(header, new ArrayList<>());
-            }
-
-            // Read and process the CSV data
-            String[] nextLine;
-            while ((nextLine = reader.readNext()) != null) {
-                // Process the CSV data in 'nextLine'
-                for (int i = 0; i < headers.length && i < nextLine.length; i++) {
-                    // Add each value to the corresponding list
-                    headerLists.get(headers[i]).add(nextLine[i]);
-                }
-            }
-            return headerLists;
-//            reader.close();
-        }
-        catch(IOException e){
-            Log.d("FILE","FILE NOT FOUND");
-        }
-        return null;
-    }
-
-
 }
+
+//    public void getLocation(View view){
+//        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+//            if(ActivityCompat.checkSelfPermission(requireActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+//                if(isGPSEnabled()){
+//                    LocationServices.getFusedLocationProviderClient(requireActivity())
+//                            .requestLocationUpdates(locationRequest, new LocationCallback() {
+//                                @Override
+//                                public void onLocationResult(@NonNull LocationResult locationResult) {
+//                                    super.onLocationResult(locationResult);
+//                                    LocationServices.getFusedLocationProviderClient(requireActivity())
+//                                            .removeLocationUpdates(this);
+//
+//                                    if(locationResult!=null && locationResult.getLocations().size()>0){
+//                                        int index=locationResult.getLocations().size()-1;
+//                                         latitude= locationResult.getLocations().get(index).getLatitude();
+//                                         longitude=locationResult.getLocations().get(index).getLongitude();
+//
+////                                        locationText.setText(latitude+", "+longitude);
+//                                        getAddressFromLocation(latitude, longitude);
+//
+//
+//                                    }
+//                                }
+//                            }, Looper.getMainLooper());
+//                }
+//                else{
+//                    turnOnGPS();
+//                }
+//            }
+//            else{
+//                ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//            }
+//        }
+//    }
+//    public void next(View view){
+//        details=readFile();
+//
+//        List<String> address=details.get("Address");
+//        Button nextButton = (Button) getView().findViewById(R.id.next_map);
+//
+//
+//        for(int i=0;i<address.size();i++){
+//            markers.add(getLocationFromAddress(requireContext(),address.get(i)));
+//        }
+//        String a=locationText.getText().toString();
+//        String[] split = a.split(",");
+//        if(split.length==2){
+//            latitude=Double.parseDouble(split[0].trim());
+//            longitude=Double.parseDouble(split[1].trim());
+//            nextButton.setVisibility(View.GONE);
+//            showMapFragment(latitude, longitude);
+//        }
+//        else{
+//            LatLng location = getLocationFromAddress(requireContext(), a);
+//            if (location != null) {
+//                nextButton.setVisibility(View.GONE);
+//                showMapFragment(location.latitude, location.longitude);
+//            } else {
+//                // Handle invalid address
+//            }
+//        }
+//    }
+//    public void previous(View view) {
+//        View rootView = getView();
+//        if (rootView.findViewById(R.id.mapsContainer).getVisibility()==View.VISIBLE) {
+//            rootView.findViewById(R.id.mapsContainer).setVisibility(View.GONE);
+//            rootView.findViewById(R.id.next_map).setVisibility(View.VISIBLE);
+//        }
+//        else{
+//            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+//            navController.navigate(R.id.navigation_home);
+//        }
+//    }
+//    public static LatLng getLocationFromAddress(Context context, String strAddress) {
+//        Geocoder coder = new Geocoder(context);
+//        List<Address> address;
+//        LatLng latLng = null;
+//
+//        try {
+//            address = coder.getFromLocationName(strAddress, 5);
+//            if (address == null || address.isEmpty()) {
+//                return null;
+//            }
+//
+//            Address location = address.get(0);
+//            double latitude = location.getLatitude();
+//            double longitude = location.getLongitude();
+//
+//            latLng = new LatLng(latitude, longitude);
+//
+//            return latLng;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//    private void getAddressFromLocation(double latitude, double longitude) {
+//        Geocoder geocoder = new Geocoder(requireContext());
+//
+//        try {
+//            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+//
+//            if (addresses != null && addresses.size() > 0) {
+//                Address address = addresses.get(0);
+//                String addressString = address.getAddressLine(0); // Get the full address
+//                locationText.setText(addressString);
+//            } else {
+//                locationText.setText("Address not found");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            locationText.setText("Error fetching address");
+//        }
+//    }
+//
+//    private void turnOnGPS(){
+//        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+//                .addLocationRequest(locationRequest);
+//        builder.setAlwaysShow(true);
+//
+//        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(requireContext())
+//                .checkLocationSettings(builder.build());
+//
+//        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+//            @Override
+//            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+//
+//                try {
+//                    LocationSettingsResponse response = task.getResult(ApiException.class);
+//                    Toast.makeText(requireActivity(), "GPS is already turned on", Toast.LENGTH_SHORT).show();
+//
+//
+//                } catch (ApiException e) {
+//
+//                    switch (e.getStatusCode()) {
+//                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+//
+//                            try {
+//                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+//                                resolvableApiException.startResolutionForResult(requireActivity(), 2);
+//                            } catch (IntentSender.SendIntentException ex) {
+//                                ex.printStackTrace();
+//                            }
+//                            break;
+//
+//                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+//                            //Device does not have location
+//                            break;
+//                    }
+//                }
+//            }
+//        });
+//    }
+//    private boolean isGPSEnabled(){
+//        LocationManager locationManager=null;
+//        boolean isEnabled=false;
+//
+//        if(locationManager==null){
+//            locationManager=(LocationManager)requireContext().getSystemService(Context.LOCATION_SERVICE);
+//        }
+//        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        return isEnabled;
+//    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        binding = null;
+//    }
+//
+//    public void showMapFragment(double latitude, double longitude) {
+//        MapsFragment mapsFragment = new MapsFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putDouble("latitude", latitude);
+//        bundle.putDouble("longitude", longitude);
+//        mapsFragment.setArguments(bundle);
+//
+//        // Replace the content of the mapsContainer with MapsFragment
+//        getChildFragmentManager().beginTransaction()
+//                .replace(R.id.mapsContainer, mapsFragment)
+//                .addToBackStack(null)
+//                .commit();
+//
+//        // Show the container
+//        getView().findViewById(R.id.mapsContainer).setVisibility(View.VISIBLE);
+//    }
+//
+////    method that reads from the file and stores the latitude and longitude in lists
+//    public Map<String,List<String>> readFile(){
+//        Resources resources = getResources();
+//        InputStream inputStream = resources.openRawResource(R.raw.data);
+//
+//        try {
+//            CSVReader reader = new CSVReader(new InputStreamReader(inputStream));
+////           // Read the headers
+//            String[] headers = reader.readNext();
+//
+//            // Create a map to store lists for each header
+//            Map<String, List<String>> headerLists = new HashMap<>();
+//            for (String header : headers) {
+//                headerLists.put(header, new ArrayList<>());
+//            }
+//
+//            // Read and process the CSV data
+//            String[] nextLine;
+//            while ((nextLine = reader.readNext()) != null) {
+//                // Process the CSV data in 'nextLine'
+//                for (int i = 0; i < headers.length && i < nextLine.length; i++) {
+//                    // Add each value to the corresponding list
+//                    headerLists.get(headers[i]).add(nextLine[i]);
+//                }
+//            }
+//            return headerLists;
+////            reader.close();
+//        }
+//        catch(IOException e){
+//            Log.d("FILE","FILE NOT FOUND");
+//        }
+//        return null;
+//    }
+
+
