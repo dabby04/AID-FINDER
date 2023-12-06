@@ -23,6 +23,7 @@ public class HomeFragment extends Fragment {
     Button skip;
     TextView number1, number2, number3, number4,header,contact;
     private FragmentHomeBinding binding;
+    private static
 
     FragmentTransaction transaction;
 
@@ -49,24 +50,32 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getActivity(), HomeActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), HomeActivity.class);
+//                startActivity(intent);
 
-//                FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//                BlankFragment newFragment = new BlankFragment();
-//                fragmentTransaction.replace(R.id.f, newFragment);
-//                fragmentTransaction.addToBackStack(null);
-//
-//                fragmentTransaction.commit();
+                getView().findViewById(R.id.header1).setVisibility(View.GONE);
+                getView().findViewById(R.id.foot1).setVisibility(View.GONE);
+                getView().findViewById(R.id.text_Number1).setVisibility(View.GONE);
+                getView().findViewById(R.id.text_Number2).setVisibility(View.GONE);
+                getView().findViewById(R.id.text_Number3).setVisibility(View.GONE);
+                getView().findViewById(R.id.text_Number4).setVisibility(View.GONE);
+                getView().findViewById(R.id.nextButton2).setVisibility(View.GONE);
+                getView().findViewById(R.id.text_Home).setVisibility(View.GONE);
+
+                FragmentManager fragmentManager =  requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                BlankFragment newFragment = new BlankFragment();
+                fragmentTransaction.replace(R.id.f, newFragment);
+                fragmentTransaction.addToBackStack(null);
+
+                fragmentTransaction.commit();
             }
         });
 
 
         return root;
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

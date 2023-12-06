@@ -27,6 +27,10 @@
             android:name=".ui.notifications.Reviewclass"
             >
         </activity>
+        <activity
+            android:name=".ui.notifications.Donate"
+            >
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 

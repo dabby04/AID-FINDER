@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,11 +27,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -40,21 +42,22 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import android.location.Address;
-import android.location.Geocoder;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.opencsv.CSVReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import com.opencsv.CSVReader;
-import java.io.IOException;
-import java.io.FileReader;
 import java.util.Map;
+
 
 public class DashboardFragment extends Fragment {
 
@@ -79,6 +82,9 @@ public class DashboardFragment extends Fragment {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        String apiKey = requireContext().getString(R.string.google_places_api_key);
+        Places.initialize(requireContext(),apiKey);
+        PlacesClient placesClient=Places.createClient(getContext());
 
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -98,6 +104,27 @@ public class DashboardFragment extends Fragment {
 
         Button previous=root.findViewById(R.id.previous_map);
         previous.setOnClickListener(this::previous);
+
+        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+                getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
+        autocompleteFragment.setHint("Enter your location");
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                LatLng latLng = place.getLatLng();
+                // Handle the selected place (e.g., update UI, save coordinates)
+                locationText.setText(latLng.latitude + ", " + latLng.longitude);
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                // Handle error
+                Log.e("Places API", "Error: " + status);
+            }
+        });
 
         return root;
     }
@@ -160,7 +187,7 @@ public class DashboardFragment extends Fragment {
                 nextButton.setVisibility(View.GONE);
                 showMapFragment(location.latitude, location.longitude);
             } else {
-                // Handle invalid address
+                Toast.makeText(getActivity(),"Enter an address",Toast.LENGTH_SHORT);
             }
         }
     }

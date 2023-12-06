@@ -2,13 +2,20 @@ package com.example.myapplication.ui.home;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.myapplication.R;
+import com.example.myapplication.databinding.FragmentDashboardBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,8 @@ import com.example.myapplication.R;
  * create an instance of this fragment.
  */
 public class BlankFragment extends Fragment {
+    private FragmentDashboardBinding binding;
+    static boolean previousClick;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +69,29 @@ public class BlankFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.home_page2, container, false);
+
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Initialize views and set click listener here
+        Button previous = view.findViewById(R.id.prevButton2);
+        previous.setOnClickListener(this::previous);
+
+        Button next=view.findViewById(R.id.nextButton);
+        next.setOnClickListener(this::next);
+    }
+    public void previous(View view){
+
+    }
+
+    public void next(View view){
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main);
+        navController.navigate(R.id.navigation_dashboard);
+    }
+
+
 }

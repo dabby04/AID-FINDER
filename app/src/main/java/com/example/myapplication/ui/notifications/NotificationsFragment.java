@@ -49,7 +49,7 @@ public class NotificationsFragment extends Fragment {
         DOB = (TextView) root.findViewById(R.id.profile_dateOfBirthTextview);
         register = root.findViewById(R.id.signup_submit_button2);
         header = root.findViewById(R.id.profile_header);
-        header.setVisibility(View.GONE);
+        header.setVisibility(View.VISIBLE);
         leaveAReview = root.findViewById(R.id.LAR);
 
         //leave a review button connection
@@ -89,6 +89,9 @@ public class NotificationsFragment extends Fragment {
             }
         });
 
+        Button donate=root.findViewById(R.id.donation);
+        donate.setOnClickListener(this::donation);
+
         return root;
     }
 
@@ -117,5 +120,10 @@ public class NotificationsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void donation(View view){
+        Intent intent= new Intent(getActivity(), Donate.class);
+        startActivity(intent);
     }
 }
