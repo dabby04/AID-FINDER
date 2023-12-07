@@ -78,8 +78,6 @@ public class BlankFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Initialize views and set click listener here
-        Button previous = view.findViewById(R.id.prevButton2);
-        previous.setOnClickListener(this::previous);
 
         Button next=view.findViewById(R.id.nextButton);
         next.setOnClickListener(this::next);

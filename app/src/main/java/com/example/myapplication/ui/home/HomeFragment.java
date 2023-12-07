@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,8 +53,15 @@ public class HomeFragment extends Fragment {
 
 //                Intent intent = new Intent(getActivity(), HomeActivity.class);
 //                startActivity(intent);
-
+                getView().findViewById(R.id.imageView5).setVisibility(View.GONE);
+                getView().findViewById(R.id.numer4_info).setVisibility(View.GONE);
+                getView().findViewById(R.id.numer4_info2).setVisibility(View.GONE);
+                getView().findViewById(R.id.numer4_info3).setVisibility(View.GONE);
+                getView().findViewById(R.id.numer4_info4).setVisibility(View.GONE);
+                getView().findViewById(R.id.alert_textView).setVisibility(View.GONE);
+                getView().findViewById(R.id.alert_textView).setVisibility(View.GONE);
                 getView().findViewById(R.id.header1).setVisibility(View.GONE);
+                getView().findViewById(R.id.alert_textView).setVisibility(View.GONE);
                 getView().findViewById(R.id.foot1).setVisibility(View.GONE);
                 getView().findViewById(R.id.text_Number1).setVisibility(View.GONE);
                 getView().findViewById(R.id.text_Number2).setVisibility(View.GONE);
@@ -66,12 +74,17 @@ public class HomeFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 BlankFragment newFragment = new BlankFragment();
-                fragmentTransaction.replace(R.id.f, newFragment);
+                loginFragment newFragment2 = new loginFragment();
+                fragmentTransaction.replace(R.id.f, newFragment2);
                 fragmentTransaction.addToBackStack(null);
 
                 fragmentTransaction.commit();
+
+
+
             }
         });
+
 
 
         return root;

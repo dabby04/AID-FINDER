@@ -114,7 +114,7 @@
         android:layout_width="166dp"
         android:layout_height="46dp"
         android:onClick="skip"
-        android:text="Skip"
+        android:text="SUBMIT"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

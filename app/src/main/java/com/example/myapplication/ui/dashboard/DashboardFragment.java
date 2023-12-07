@@ -23,12 +23,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentDashboardBinding;
+import com.example.myapplication.ui.home.BlankFragment;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.common.api.Status;
@@ -69,6 +72,7 @@ public class DashboardFragment extends Fragment {
 
     static Map<String,List<String>> details;
     static List<LatLng> markers=new ArrayList<>();
+    AutocompleteSupportFragment autocompleteFragment;
 
 //    Things remaining for me to do:
 //    when done navigating, allow the user to click take me there close navigation completely-- starred concept
@@ -105,7 +109,7 @@ public class DashboardFragment extends Fragment {
         Button previous=root.findViewById(R.id.previous_map);
         previous.setOnClickListener(this::previous);
 
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
+        autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
@@ -163,34 +167,72 @@ public class DashboardFragment extends Fragment {
             }
         }
     }
-    public void next(View view){
-        details=readFile();
+//    public void next(View view){
+//        details=readFile();
+//
+//        List<String> address=details.get("Address");
+//        Button nextButton = (Button) getView().findViewById(R.id.next_map);
+//
+//
+//        for(int i=0;i<address.size();i++){
+//            markers.add(getLocationFromAddress(requireContext(),address.get(i)));
+//        }
+//        String a=locationText.getText().toString();
+//        String[] split = a.split(",");
+//        if(split.length==2){
+//            latitude=Double.parseDouble(split[0].trim());
+//            longitude=Double.parseDouble(split[1].trim());
+//            nextButton.setVisibility(View.GONE);
+//            showMapFragment(latitude, longitude);
+//        }
+//        else{
+//            LatLng location = getLocationFromAddress(requireContext(), a);
+//            if (location != null) {
+//                nextButton.setVisibility(View.GONE);
+//                showMapFragment(location.latitude, location.longitude);
+//            } else {
+//                Toast.makeText(getActivity(),"Enter an address",Toast.LENGTH_SHORT);
+//            }
+//        }
+//    }
+public void next(View view){
+    details = readFile();
 
-        List<String> address=details.get("Address");
-        Button nextButton = (Button) getView().findViewById(R.id.next_map);
+    List<String> addressList = details.get("Address");
+    Button nextButton = (Button) getView().findViewById(R.id.next_map);
 
-
-        for(int i=0;i<address.size();i++){
-            markers.add(getLocationFromAddress(requireContext(),address.get(i)));
-        }
-        String a=locationText.getText().toString();
-        String[] split = a.split(",");
-        if(split.length==2){
-            latitude=Double.parseDouble(split[0].trim());
-            longitude=Double.parseDouble(split[1].trim());
-            nextButton.setVisibility(View.GONE);
-            showMapFragment(latitude, longitude);
-        }
-        else{
-            LatLng location = getLocationFromAddress(requireContext(), a);
-            if (location != null) {
-                nextButton.setVisibility(View.GONE);
-                showMapFragment(location.latitude, location.longitude);
-            } else {
-                Toast.makeText(getActivity(),"Enter an address",Toast.LENGTH_SHORT);
-            }
-        }
+    for (int i = 0; i < addressList.size(); i++) {
+        markers.add(getLocationFromAddress(requireContext(), addressList.get(i)));
     }
+
+    String enteredAddress = locationText.getText().toString().trim();
+
+    if (!enteredAddress.isEmpty()) {
+        LatLng enteredLocation = getLocationFromAddress(requireContext(), enteredAddress);
+        if (enteredLocation != null) {
+            // Update AutoCompleteTextView with the entered address
+            autocompleteFragment.setText(enteredAddress);
+            // Show the entered address in the locationText TextView
+            locationText.setText(enteredAddress);
+
+            // Get the latitude and longitude of the entered address
+            double enteredLatitude = enteredLocation.latitude;
+            double enteredLongitude = enteredLocation.longitude;
+
+            // Perform any additional actions with the latitude and longitude as needed
+            // For example, you can store them in variables or use them in your application logic
+
+            // Hide the nextButton
+            nextButton.setVisibility(View.GONE);
+            // Show the map fragment
+            showMapFragment(enteredLatitude, enteredLongitude);
+        } else {
+            Toast.makeText(getActivity(), "Invalid address", Toast.LENGTH_SHORT).show();
+        }
+    } else {
+        Toast.makeText(getActivity(), "Enter an address", Toast.LENGTH_SHORT).show();
+    }
+}
     public void previous(View view) {
         View rootView = getView();
         if (rootView.findViewById(R.id.mapsContainer).getVisibility()==View.VISIBLE) {
@@ -235,12 +277,14 @@ public class DashboardFragment extends Fragment {
                 Address address = addresses.get(0);
                 String addressString = address.getAddressLine(0); // Get the full address
                 locationText.setText(addressString);
+                autocompleteFragment.setText(addressString);
             } else {
                 locationText.setText("Address not found");
+                autocompleteFragment.setText("Address not found");
             }
         } catch (IOException e) {
             e.printStackTrace();
-            locationText.setText("Error fetching address");
+            autocompleteFragment.setText("Error fetching address");
         }
     }
 
