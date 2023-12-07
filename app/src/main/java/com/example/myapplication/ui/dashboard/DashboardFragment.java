@@ -92,22 +92,22 @@ public class DashboardFragment extends Fragment {
 
         final TextView textView = binding.textDashboard;
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-//
+
         locationText = root.findViewById(R.id.locationText);
-//
-//        locationRequest = LocationRequest.create();
-//        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-//        locationRequest.setInterval(5000);
-//        locationRequest.setFastestInterval(2000);
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
 
         ImageButton getLocationButton = root.findViewById(R.id.imageButton);
-//        getLocationButton.setOnClickListener(this::getLocation);
+        getLocationButton.setOnClickListener(this::getLocation);
 
-        Button next = root.findViewById(R.id.next_map);
-        //      next.setOnClickListener(this::next);
+        Button next=root.findViewById(R.id.next_map);
+        next.setOnClickListener(this::next);
 
-        Button previous = root.findViewById(R.id.previous_map);
-        //    previous.setOnClickListener(this::previous);
+        Button previous=root.findViewById(R.id.previous_map);
+        previous.setOnClickListener(this::previous);
 
         autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
@@ -147,8 +147,8 @@ public class DashboardFragment extends Fragment {
 
                                     if(locationResult!=null && locationResult.getLocations().size()>0){
                                         int index=locationResult.getLocations().size()-1;
-                                         latitude= locationResult.getLocations().get(index).getLatitude();
-                                         longitude=locationResult.getLocations().get(index).getLongitude();
+                                        latitude= locationResult.getLocations().get(index).getLatitude();
+                                        longitude=locationResult.getLocations().get(index).getLongitude();
 
 //                                        locationText.setText(latitude+", "+longitude);
                                         getAddressFromLocation(latitude, longitude);
@@ -167,7 +167,7 @@ public class DashboardFragment extends Fragment {
             }
         }
     }
-//    public void next(View view){
+    //    public void next(View view){
 //        details=readFile();
 //
 //        List<String> address=details.get("Address");
@@ -195,44 +195,44 @@ public class DashboardFragment extends Fragment {
 //            }
 //        }
 //    }
-public void next(View view){
-    details = readFile();
+    public void next(View view){
+        details = readFile();
 
-    List<String> addressList = details.get("Address");
-    Button nextButton = (Button) getView().findViewById(R.id.next_map);
+        List<String> addressList = details.get("Address");
+        Button nextButton = (Button) getView().findViewById(R.id.next_map);
 
-    for (int i = 0; i < addressList.size(); i++) {
-        markers.add(getLocationFromAddress(requireContext(), addressList.get(i)));
-    }
-
-    String enteredAddress = locationText.getText().toString().trim();
-
-    if (!enteredAddress.isEmpty()) {
-        LatLng enteredLocation = getLocationFromAddress(requireContext(), enteredAddress);
-        if (enteredLocation != null) {
-            // Update AutoCompleteTextView with the entered address
-            autocompleteFragment.setText(enteredAddress);
-            // Show the entered address in the locationText TextView
-            locationText.setText(enteredAddress);
-
-            // Get the latitude and longitude of the entered address
-            double enteredLatitude = enteredLocation.latitude;
-            double enteredLongitude = enteredLocation.longitude;
-
-            // Perform any additional actions with the latitude and longitude as needed
-            // For example, you can store them in variables or use them in your application logic
-
-            // Hide the nextButton
-            nextButton.setVisibility(View.GONE);
-            // Show the map fragment
-            showMapFragment(enteredLatitude, enteredLongitude);
-        } else {
-            Toast.makeText(getActivity(), "Invalid address", Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < addressList.size(); i++) {
+            markers.add(getLocationFromAddress(requireContext(), addressList.get(i)));
         }
-    } else {
-        Toast.makeText(getActivity(), "Enter an address", Toast.LENGTH_SHORT).show();
+
+        String enteredAddress = locationText.getText().toString().trim();
+
+        if (!enteredAddress.isEmpty()) {
+            LatLng enteredLocation = getLocationFromAddress(requireContext(), enteredAddress);
+            if (enteredLocation != null) {
+                // Update AutoCompleteTextView with the entered address
+                autocompleteFragment.setText(enteredAddress);
+                // Show the entered address in the locationText TextView
+                locationText.setText(enteredAddress);
+
+                // Get the latitude and longitude of the entered address
+                double enteredLatitude = enteredLocation.latitude;
+                double enteredLongitude = enteredLocation.longitude;
+
+                // Perform any additional actions with the latitude and longitude as needed
+                // For example, you can store them in variables or use them in your application logic
+
+                // Hide the nextButton
+                nextButton.setVisibility(View.GONE);
+                // Show the map fragment
+                showMapFragment(enteredLatitude, enteredLongitude);
+            } else {
+                Toast.makeText(getActivity(), "Invalid address", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getActivity(), "Enter an address", Toast.LENGTH_SHORT).show();
+        }
     }
-}
     public void previous(View view) {
         View rootView = getView();
         if (rootView.findViewById(R.id.mapsContainer).getVisibility()==View.VISIBLE) {
@@ -360,7 +360,7 @@ public void next(View view){
         getView().findViewById(R.id.mapsContainer).setVisibility(View.VISIBLE);
     }
 
-//    method that reads from the file and stores the latitude and longitude in lists
+    //    method that reads from the file and stores the latitude and longitude in lists
     public Map<String,List<String>> readFile(){
         Resources resources = getResources();
         InputStream inputStream = resources.openRawResource(R.raw.data);
@@ -392,6 +392,7 @@ public void next(View view){
             Log.d("FILE","FILE NOT FOUND");
         }
         return null;
-    }}
+    }
 
 
+}
