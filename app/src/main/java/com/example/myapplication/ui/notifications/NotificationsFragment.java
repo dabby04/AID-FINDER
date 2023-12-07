@@ -90,28 +90,7 @@ public class NotificationsFragment extends Fragment {
         return root;
     }
 
-
-        public void save_data(View v) {
-            String u = username.getText().toString();
-            String n = name.getText().toString();
-            String e = email.getText().toString();
-            String p = phone_number.getText().toString();
-            String d = DOB.getText().toString();
-
-            String filename = "users_data.txt";
-            String fileContents = "\n" + u + "\n" + e + "\n" + p + "\n" + d;
-            FileOutputStream outputStream; //allow a file to be opened for writing
-            try {
-                outputStream =  getContext().openFileOutput(filename, Context.MODE_APPEND);
-                outputStream.write(fileContents.getBytes());
-                outputStream.close();
-            }
-            catch (Exception err) {
-                err.printStackTrace();
-            }
-
-
-        }
+    
 
     // date picker
     private void showDatePickerDialog() {

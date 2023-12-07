@@ -25,17 +25,7 @@ public class Reviewclass extends AppCompatActivity{
         Log.d("Reviewclass", "Reviewclass activity started");
         RatingBar ratingBar = findViewById(R.id.ratingBar);
 
-        RatingBar ratingBar = findViewById(R.id.ratingBar);
 
-//        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-//            @Override
-//            public void onRatingChanged(RatingBar ratingBar) {
-//
-//                Toast.makeText(getApplicationContext(), "Rated: " + rating, Toast.LENGTH_SHORT).show();
-//
-//
-//            }
-//        });
 
     }
 

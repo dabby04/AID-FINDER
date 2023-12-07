@@ -392,6 +392,6 @@ public void next(View view){
             Log.d("FILE","FILE NOT FOUND");
         }
         return null;
-    }
+    }}
 
 
