@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import android.os.Bundle;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,9 @@ public class Reviewclass extends AppCompatActivity{
 
     public void skip(View v){
         finish();
+    }
+    public void submit(View v){
+        Toast.makeText(this,"Review has been submitted",Toast.LENGTH_SHORT).show();
     }
 
 }

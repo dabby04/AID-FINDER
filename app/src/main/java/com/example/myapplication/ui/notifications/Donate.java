@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,4 +19,7 @@ public class Donate extends AppCompatActivity {
     }
 
     public void close(View view){finish();}
+    public void submit(View view){
+        Toast.makeText(this,"Thank you for your donation",Toast.LENGTH_SHORT).show();
+    }
 }
