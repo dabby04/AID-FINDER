@@ -37,7 +37,6 @@ public class HomeActivity extends AppCompatActivity {
         community = (CheckBox) findViewById(R.id.checkBox3);
         head = (TextView) findViewById(R.id.header2);
         next = (Button) findViewById(R.id.nextButton);
-        prev = (Button) findViewById(R.id.prevButton2);
 
         needsFood = false;
         needsCommunity = false;

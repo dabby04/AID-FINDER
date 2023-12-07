@@ -51,7 +51,7 @@ public class NotificationsFragment extends Fragment {
         DOB = (TextView) root.findViewById(R.id.profile_dateOfBirthTextview);
         register = root.findViewById(R.id.signup_submit_button2);
         header = root.findViewById(R.id.profile_header);
-        header.setVisibility(View.GONE);
+        header.setVisibility(View.VISIBLE);
         leaveAReview = root.findViewById(R.id.LAR);
 
         //leave a review button connection
@@ -69,6 +69,7 @@ public class NotificationsFragment extends Fragment {
 
 
 
+
         ImageView imageView4 = root.findViewById(R.id.imageView4);
         imageView4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,15 @@ public class NotificationsFragment extends Fragment {
                 showDatePickerDialog();
             }
         });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        Button donate=root.findViewById(R.id.donation);
+        donate.setOnClickListener(this::donation);
 
         return root;
     }
@@ -128,5 +138,32 @@ public class NotificationsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void donation(View view){
+        Intent intent= new Intent(getActivity(), Donate.class);
+        startActivity(intent);
+    }
+
+    public void save_data(View v) {
+        String u = username.getText().toString();
+        String n = name.getText().toString();
+        String e = email.getText().toString();
+        String p = phone_number.getText().toString();
+        String d = DOB.getText().toString();
+
+        String filename = "users_data.txt";
+        String fileContents = "\n" + u + "\n" + e + "\n" + p + "\n" + d;
+        FileOutputStream outputStream; //allow a file to be opened for writing
+        try {
+            outputStream =  getContext().openFileOutput(filename, Context.MODE_APPEND);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
+        }
+        catch (Exception err) {
+            err.printStackTrace();
+        }
+
+
     }
 }

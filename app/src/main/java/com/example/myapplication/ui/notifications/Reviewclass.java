@@ -23,6 +23,7 @@ public class Reviewclass extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rewiew_page1);
         Log.d("Reviewclass", "Reviewclass activity started");
+        RatingBar ratingBar = findViewById(R.id.ratingBar);
 
         RatingBar ratingBar = findViewById(R.id.ratingBar);
 
@@ -39,6 +40,10 @@ public class Reviewclass extends AppCompatActivity{
     }
 
     public void skip(View v){
+        finish();
+    }
+    public void submit(View v){
+        Toast.makeText(this,"Review has been submitted",Toast.LENGTH_SHORT).show();
         finish();
     }
 

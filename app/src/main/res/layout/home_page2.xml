@@ -53,32 +53,15 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/prevButton2"
-        android:layout_width="175dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginBottom="93dp"
-        android:text="Previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.52" />
-
-    <Button
         android:id="@+id/nextButton"
         android:layout_width="184dp"
         android:layout_height="74dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="47dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="124dp"
         android:layout_marginBottom="96dp"
         android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/prevButton2"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.52" />
 
