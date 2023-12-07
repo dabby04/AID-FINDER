@@ -29,6 +29,7 @@ public class Reviewclass extends AppCompatActivity{
     }
     public void submit(View v){
         Toast.makeText(this,"Review has been submitted",Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }

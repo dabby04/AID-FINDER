@@ -88,15 +88,15 @@
         android:id="@+id/registrationHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Login to Aid Finder"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.094"
-        tools:text="Login to Aid Finder" />
+        app:layout_constraintVertical_bias="0.094" />
+
 
     <EditText
         android:id="@+id/login_DOB"
@@ -110,14 +110,13 @@
         android:ems="10"
         android:focusable="false"
         android:hint="Date of Birth"
-        android:inputType="date"
-        android:onClick="setDate"
+        android:onClick="showDatePickerDialog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.829" />
+        app:layout_constraintVertical_bias="0.83" />
 
     <ImageView
         android:id="@+id/imageView"
